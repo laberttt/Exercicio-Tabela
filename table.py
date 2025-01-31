@@ -19,3 +19,35 @@ def criarTabela():
 
     return tabela
 
+#Segundo Requesito
+def addLinha(tabela):
+    print("\n-=ADICIONANDO NOVA LINHA=-\n")  
+    for key, valor in tabela.items():
+        novo_item = input(f"Digite o novo item da coluna | {key}: ").capitalize()
+        
+        while True:
+            if novo_item!="":
+                break
+            else:
+                print("Inválido. Tente Novamente! ")
+                novo_item = input(f"Digite o novo item da coluna | {key}: ")
+
+        valor.append(novo_item)
+        
+    return exibir_tabela(tabela)
+
+#Terceiro Requesito
+def delLinha(tabela):
+    print("\n-=DELETANDO LINHA=-\n")  
+    indice = int(input("Digite o indice que quer remover: "))
+    cont_linha = list(tabela.values())
+
+    while (indice >= len(cont_linha[0]) or indice < 0):
+        print("Erro, tamanho errado!!")
+        indice = int(input("Digite o indice que quer remover: "))
+
+    for j in tabela.values():
+        j.pop(indice)
+    print("Removido com Sucesso!")
+
+    return exibir_tabela(tabela)
