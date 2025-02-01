@@ -125,3 +125,68 @@ def exibir_tabela(tabela):
     print("\n-=EXIBINDO A TABELA=-\n")  
     print(pd.DataFrame(tabela))
 
+#Nono Requesito
+def openCSV():
+    print("\n-=ABRINDO ARQUIVO .CSV=-\n")
+    nova_tabela = {}
+    colunas = ["Nome", "Dano Corpo", "Dano Cabeça"]
+
+    for coluna in colunas:
+        nova_tabela[coluna] = []
+
+    with open('counterStrike.csv', 'r') as arqCsv:
+        arqCsv.readline()
+
+        for linha in arqCsv:
+            linhas = linha.strip().split(',')
+            
+            for i in range(len(colunas)):
+                nova_tabela[colunas[i]].append(linhas[i])
+
+    return nova_tabela
+
+#Décimo Requesito
+def filtarTable(armaDano, primeiraLetra):
+    print("\n-=APLICANDO FILTRO=-\n")
+    print('''O que você quer filtrar:
+          
+            [1] - Dano na Cabeça
+            [2] - Primeira Letra
+          ''')
+    
+    opc = int(input("Digite a opc: "))
+    print("\n")
+    
+    if opc==1:
+        return armaDano()
+    else:
+        return primeiraLetra()
+    
+    
+#Funções Auxiliar
+
+#Filtro 1
+def armaDano():
+    valor = int(input("Digite qual dano na cabeça você quer filtrar: "))
+    tab = openCSV()
+    cont = 0
+    
+    for i in tab["Dano Cabeça"]:
+        if int(i) > valor:
+            nome = tab["Nome"][cont]
+            print(f"{nome}: {i}")
+        cont += 1
+
+#Filtro 2
+def primeiraLetra():
+    letra = str(input("Digite uma letra que vc quer filtrar: ")).upper()
+    while True:
+        if len(letra)>1:
+            print("DIGITE APENAS UMA LETRA. Tente Novamente! ")
+            letra = str(input("Digite uma letra que vc quer filtrar: ")).upper()
+        else:
+            tab = openCSV()
+            for i in tab["Nome"]:
+                if letra in i:
+                    print(i)
+            break
